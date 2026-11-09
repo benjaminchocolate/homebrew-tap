@@ -1,7 +1,7 @@
 # typed: strict
 # frozen_string_literal: true
 
-cask "carla" do
+cask "carla-app" do
   version "2.5.10"
   sha256 "a30e98409974493ade18f598566628369fee67f179a84e1c2cc3ae46a71808b1"
 
