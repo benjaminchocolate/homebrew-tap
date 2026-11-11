@@ -42,3 +42,4 @@ postflight do
                      args: ["--force", "--deep", "--sign", "-", path]
     end
 end
+end
