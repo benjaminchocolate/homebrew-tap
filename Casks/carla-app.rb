@@ -31,5 +31,14 @@ cask "carla-app" do
     "~/Library/Preferences/com.falktx.Carla2.plist",
     "~/Library/Preferences/com.falktx.CarlaDatabase2.plist",
     "~/Library/Preferences/com.falktx.CarlaPlugins5.plist",
-  ]
+      ]
+
+postflight do
+    ["Carla.app", "Carla-Control.app"].each do |app|
+      path = "#{appdir}/#{app}"
+      system_command "/usr/bin/xattr",
+                     args: ["-dr", "com.apple.quarantine", path]
+      system_command "/usr/bin/codesign",
+                     args: ["--force", "--deep", "--sign", "-", path]
+    end
 end
