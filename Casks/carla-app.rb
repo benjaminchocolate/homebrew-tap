@@ -33,13 +33,15 @@ cask "carla-app" do
     "~/Library/Preferences/com.falktx.CarlaPlugins5.plist",
       ]
 
-postflight do
-    ["Carla.app", "Carla-Control.app"].each do |app|
-      path = "#{appdir}/#{app}"
-      system_command "/usr/bin/xattr",
-                     args: ["-dr", "com.apple.quarantine", path]
-      system_command "/usr/bin/codesign",
-                     args: ["--force", "--deep", "--sign", "-", path]
-    end
+  postflight_steps do
+    run "/usr/bin/xattr",
+        args: ["-dr", "com.apple.quarantine", "{{appdir}}/Carla.app"]
+    run "/usr/bin/codesign",
+        args: ["--force", "--deep", "--sign", "-", "{{appdir}}/Carla.app"]
+    run "/usr/bin/xattr",
+        args: ["-dr", "com.apple.quarantine", "{{appdir}}/Carla-Control.app"]
+    run "/usr/bin/codesign",
+        args: ["--force", "--deep", "--sign", "-", "{{appdir}}/Carla-Control.app"]
+  end
 end
-end
+
