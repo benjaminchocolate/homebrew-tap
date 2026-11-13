@@ -33,9 +33,10 @@ lint: setup
     {{ brew }} style {{ tap }}
     {{ brew }} audit --tap {{ tap }}
 
-# Auto-fix formatting in place (check `git diff` afterwards)
+# Auto-fix formatting of the casks in place (check `git diff` afterwards).
+# Only Casks/*.rb: autocorrecting README.md through rubocop-md mangles it.
 fix: setup
-    {{ brew }} style --fix {{ tap }}
+    {{ brew }} style --fix Casks/*.rb
 
 # Audit one cask, e.g. `just audit carla`
 audit cask: setup
