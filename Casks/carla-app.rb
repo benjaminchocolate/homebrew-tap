@@ -21,18 +21,6 @@ cask "carla-app" do
   app "Carla-Control.app"
   pkg "Carla-Plugins.pkg"
 
-  uninstall pkgutil: [
-    "studio.kx.carla.lv2",
-    "studio.kx.carla.vst2fx",
-    "studio.kx.carla.vst2syn",
-  ]
-
-  zap trash: [
-    "~/Library/Preferences/com.falktx.Carla2.plist",
-    "~/Library/Preferences/com.falktx.CarlaDatabase2.plist",
-    "~/Library/Preferences/com.falktx.CarlaPlugins5.plist",
-      ]
-
   postflight_steps do
     run "/usr/bin/xattr",
         args: ["-dr", "com.apple.quarantine", "{{appdir}}/Carla.app"]
@@ -43,5 +31,16 @@ cask "carla-app" do
     run "/usr/bin/codesign",
         args: ["--force", "--deep", "--sign", "-", "{{appdir}}/Carla-Control.app"]
   end
-end
 
+  uninstall pkgutil: [
+    "studio.kx.carla.lv2",
+    "studio.kx.carla.vst2fx",
+    "studio.kx.carla.vst2syn",
+  ]
+
+  zap trash: [
+    "~/Library/Preferences/com.falktx.Carla2.plist",
+    "~/Library/Preferences/com.falktx.CarlaDatabase2.plist",
+    "~/Library/Preferences/com.falktx.CarlaPlugins5.plist",
+  ]
+end
